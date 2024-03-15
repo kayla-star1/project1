@@ -32,10 +32,7 @@ def about():
 
 @app.route('/properties/create', methods=["POST","GET"])
 def create():
-    property_form= NewPropertyForm()
-    if request.method =='GET':
-        return render_template('create.html', form=property_form)
-    
+    property_form= NewPropertyForm()    
     if request.method == 'POST' and property_form.validate_on_submit():
         #[title, description, no_of_bedrooms,no_of_bathrooms,price, property_type,location, photo, token]= property_form
         
@@ -58,7 +55,7 @@ def create():
         db.session.commit()
 
         flash('Successfully added a new property','success')
-        return redirect(url_for('DisplayProp'))
+        return redirect(url_for('properties'))
     else:
         flash('Property not added','danger')
         
