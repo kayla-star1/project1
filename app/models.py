@@ -1,6 +1,6 @@
 from . import db
 
-class Properties(db.Model):
+class Property(db.Model):
 
      __tablename__ = 'properties'
 

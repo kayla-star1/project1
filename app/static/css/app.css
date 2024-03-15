@@ -1,3 +1,75 @@
 body {
     padding-top: 5rem;
 }
+
+.properties{
+    width: 70%;
+}
+
+.properties .grid1{
+    display:flex;
+     flex-direction:row;
+     padding:10px;
+    
+}
+
+.properties .grid2{
+     display:flex;
+    flex-direction:row;
+    padding:10px;
+}
+
+.fields{
+    padding:10px;
+}
+
+.form-control{
+    padding:10px;
+}
+
+.properties{
+    display:flex;
+    flex-direction:row;
+}
+
+.card-body{
+    border:12px;
+}
+
+.grids{
+    padding:15px;
+}
+
+.price{
+    margin-right: 10px;
+    padding:5px;
+    background-color:purple;
+    color:white;
+    border-radius: 30%;
+}
+
+.type{
+     background-color:orange;
+     padding:2px;
+    color:white;
+    border-radius: 30%;
+    
+}
+
+.bed{
+    padding:2px;
+}
+
+.bath{
+    padding:2px;
+    margin-left: 10px;
+}
+
+.card-text{
+    padding-top: 10px;
+}
+
+.everything{
+    width:70%;
+    align-items:center;
+}
