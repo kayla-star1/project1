@@ -88,7 +88,7 @@ def get_prop_info():
     return properties
 
 
-@app.route('/properties/<int:id>')
+@app.route('/properties/<id>')
 def view_properties(id):
     """Render the website's properties page based on an ID."""
     view_properties = Property.query.get_or_404(id)
