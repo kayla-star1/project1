@@ -33,9 +33,7 @@ def about():
 @app.route('/properties/create', methods=["POST","GET"])
 def create():
     property_form= NewPropertyForm()    
-    if property_form.validate_on_submit():
-        #[title, description, no_of_bedrooms,no_of_bathrooms,price, property_type,location, photo, token]= property_form
-        
+    if property_form.validate_on_submit():        
         title= property_form.title.data
         description= property_form.description.data
         no_of_bedrooms= property_form.no_of_bedrooms.data
@@ -43,45 +41,28 @@ def create():
         price = property_form.price.data
         property_type= property_form.property_type.data
         location=property_form.location.data
-
         photo=property_form.pic.data
         filename = secure_filename(photo.filename)
+        print(filename)
+        print(app.config['UPLOAD_FOLDER'])
         photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
         property_info = Property(title=title, no_of_bedrooms=no_of_bedrooms, no_of_bathrooms=no_of_bathrooms,
-                                  location=location, price=price, property_type=property_type,description=description,photo=photo)
-        
+                                  location=location, price=price, property_type=property_type,description=description,photo=filename)
         db.session.add(property_info)
         db.session.commit()
-
         flash('Successfully added a new property','success')
-        return redirect(url_for('properties'))
-        
+        return redirect(url_for('properties'))    
     flash_errors(property_form)
     return render_template('create.html', form=property_form)
-
-
 
 @app.route('/properties')
 def properties():
     """Render the website's properties page."""
-    photos= get_uploaded_images()
     if get_prop_info() != []:
-        rootdir = 'uploads/'
-        length =length_hint(get_prop_info())
-        return render_template('allProp.html', filenames= photos , properties= get_prop_info() ,rootdirectory = rootdir, len = length)
+        return render_template('allProp.html',properties= get_prop_info())
     else: 
         flash("No properties", 'danger')
         return redirect('allProp.html')
-
-def get_uploaded_images():
-    rootdir = os.getcwd()
-    file_lst=[]
-    print("root directry:",rootdir)
-    for subdir, dirs, files in os.walk('uploads/'):
-        for file in files:
-            file_lst.append(os.path.join(subdir, file))
-    return file_lst
 
 def get_prop_info():
     properties= Property.query.all()
@@ -92,7 +73,7 @@ def get_prop_info():
 def view_properties(id):
     """Render the website's properties page based on an ID."""
     view_properties = Property.query.get_or_404(id)
-    return render_template('property.html', prop = view_properties,rootdiri = 'uploads/') 
+    return render_template('property.html', prop = view_properties) 
 
 
 ###

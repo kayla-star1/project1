@@ -3,29 +3,43 @@
 {% block main %}
 <h1 class="title">Properties</h1>
 {% include 'flash_messages.html' %}
+<style>
+    .grids {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    .card {
+        width: 18rem;
+    }
+</style>
 <div class="properties">
     {% for property in properties %}
     <div class="grids">
         <div class="card text-left" style="width: 18rem;">
-            {% set pic= rootdirectory ~ property.photo %}
-            <img class="card-img-top" src="{{ url_for('static',filename=pic) }}" width="250" height="200">
+            {% set photo = static ~ property.photo %}
+            <img class="card-img-top" src="{{ url_for('static',filename='uploads/'+ property.photo) }}" width="250" height="200">
             <div class="card-body">
                 <h5 class="card-title">{{ property.title }}</h5>
             </div>
             <div class="card-body">
-                {{ property.location }}
-                <br>
-                <div class="d-flex justify-content-start"><span class="price">
-                        <h6> {{ '$'~property.price }}</h6>
-                </div></span>
-            </div>
-            <div class="card-body">
-                <div class="d-grid gap-2">
-                    <a href="{{ url_for('view_properties',id=property.propertyId) }}" id="btn"
-                        class="btn btn-lg btn-primary">View Property</a>
+                <div style="display: flex; align-items: center;">
+                    <img class="location" src="{{url_for('static',filename='location.png')}}" width="30px" style="margin-right: 10px; filter: grayscale(100%);">  
+                    <h6 style="color: #808080; margin: 0;">{{ property.location }}</h6>
+                </div>
+                <div style="margin-top: 10px;">
+                    <h6 style="background-color: #3498DB; color: white; border-radius: 20px; padding: 5px 10px; display: inline-block; margin-right: 10px;">{{ '$'~property.price }}</h6>
                 </div>
             </div>
+            <div class="card-body" style="margin-top: auto;">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('view_properties',id=property.propertyId) }}" id="btn" class="btn btn-lg btn-primary">View Property</a>
+                </div>
+            </div>            
         </div>
+        
     </div>
     {% endfor %}
 

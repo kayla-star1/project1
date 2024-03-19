@@ -1,32 +1,60 @@
 {% extends 'base.html' %}
 
 {% block main %}
-    <div class="everything">
+<style>
+    .everything {
+        padding: 20px;
+    }
+
+    .card {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 20px;
+    }
+
+    .card-img-sm-left {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .card-body {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 20px;
+    }
+
+    .bed, .bath {
+        margin-right: 10px;
+    }
+    </style>
+    <div class="everything">  
         <div class="card flex-row" >
-            {% set photo = rootdiri ~ property_form.photo %}
-            
-            <img class=class="card-img-sm-left" src="{{ url_for('static',filename = photo) }}" alt="Card image" width="470" height="490">
-              
+            <img class="card-img-sm-left" src="{{ url_for('static',filename='uploads/'+prop.photo) }}"  alt="Card image"> 
             <div class="card-body">
-                <h5  class="card-title"> {{ prop.title }}</h5>
+                <h5 class="card-title">{{ prop.title }}</h5>
                 <div class="d-flex justify-content-start">
-                    <span class = "price"><h6>  {{ '$'~prop.price }}</h6></span> 
-                    <span class = "type"><h6>{{ prop.property_type }}</h6></span>
+                    <h6 style="background-color: #3498DB; color: white; border-radius: 20px; padding: 5px 10px; display: inline-block; margin-right: 10px;">{{ '$'~prop.price }}</h6>
+                    <h6 style="background-color: orange; color: white; border-radius: 20px; padding: 5px 10px; display: inline-block; margin-right: 10px;">{{ prop.property_type }}</h6>
                 </div>
     
                 <p class="card-text">
-                    {{prop.description }}
+                    {{ prop.description }}
                 </p>
                 <br>
-                <div class = "d-flex flex-row bd-highlight mb-3">
-                    <span class = "bed"><h6>  {{ prop.no_of_bedroom }} Bedrooms  </h6></span>
-                    <span class = "bath"><h6>  {{ prop.no_of_bathroom }} Bathrooms</h6></span>
+                <div class="d-flex flex-row bd-highlight mb-3">                    
+                    <img class="bed" src="{{url_for('static',filename='bed.png')}}" width="30px">  
+                    <span class = "bed"><h6>  {{ prop.no_of_bedrooms }} Bedrooms  </h6></span>
+                    <img class="bath" src="{{url_for('static',filename='bath.png')}}" width="30px">  
+                    <span class = "bath"><h6>  {{ prop.no_of_bathrooms }} Bathrooms</h6></span>
                 </div>
-                
-                <h6> {{ prop.location }}</h6>
+                <div class="d-flex align-items-center">
+                    <img class="location" src="{{url_for('static',filename='location.png')}}" width="30px">  
+                    <h6 style="margin: 0;">{{ prop.location }}</h6>
+                </div>
                 <br>
                 <a href="#" class="btn btn-primary">Email Realtor</a>
-            </div>
+            </div>  
         </div>
     </div>
       

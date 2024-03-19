@@ -12,7 +12,7 @@ class Property(db.Model):
      price = db.Column(db.Integer,nullable=False)
      property_type = db.Column(db.String(15))
      description = db.Column(db.String(800))
-     photo= db.Column(db.Text,nullable=False)
+     photo= db.Column(db.String,nullable=False)
 
 
      def __init__(self,title, location,no_of_bathrooms,no_of_bedrooms, price,property_type,description,photo):
